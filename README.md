@@ -1,5 +1,7 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+#Intro
+![alt text](https://i.ytimg.com/vi/1hJ5J5QiyIY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCAq5zjx9W7kLa9F4g3afZU-c8sCQ)
 Genshin Impact[a] is an action role-playing game developed by miHoYo, and published by miHoYo in mainland China and by Cognosphere, d/b/a HoYoverse worldwide. It was released for Android, iOS, PlayStation 4, and Windows in 2020, on PlayStation 5 in 2021, and is set for release on Nintendo Switch. The game features an anime-style open-world environment and an action-based battle system using elemental magic and character-switching. A free-to-play game monetized through gacha game mechanics, Genshin Impact is expanded regularly through patches using the games as a service model.
 https://en.wikipedia.org/wiki/Genshin_Impact
 
