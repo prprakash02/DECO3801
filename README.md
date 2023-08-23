@@ -1,5 +1,10 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+Genshin Impact[a] is an action role-playing game developed by miHoYo, and published by miHoYo in mainland China and by Cognosphere, d/b/a HoYoverse worldwide. It was released for Android, iOS, PlayStation 4, and Windows in 2020, on PlayStation 5 in 2021, and is set for release on Nintendo Switch. The game features an anime-style open-world environment and an action-based battle system using elemental magic and character-switching. A free-to-play game monetized through gacha game mechanics, Genshin Impact is expanded regularly through patches using the games as a service model.
+https://en.wikipedia.org/wiki/Genshin_Impact
+
+Team Apex
+
 # Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
