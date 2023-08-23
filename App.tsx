@@ -17,6 +17,12 @@ import {
   View,
 } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Home from './screens/Home'
+import Chat from './screens/Chat'
+import Advice from './screens/Advice';
+import HealthData from './screens/HealthData';
 import {
   Colors,
   DebugInstructions,
@@ -25,10 +31,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+const Tab = createBottomTabNavigator();
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
-
+/*
 function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -54,7 +61,7 @@ function Section({children, title}: SectionProps): JSX.Element {
     </View>
   );
 }
-
+*/
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -63,70 +70,16 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Apex VI native template">
-            For testing purpose
-          </Section>
-          <Section title="Apex VI native template">
-            For testing purpose
-          </Section>
-          <Section title = "Dunno what to put here">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-              molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-              numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-              optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis
-              obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam
-              nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit,
-              tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit,
-              quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos 
-              sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam
-              recusandae alias error harum maxime adipisci amet laborum. Perspiciatis 
-              minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit 
-              quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur 
-              fugiat, temporibus enim commodi iusto libero magni deleniti quod quam 
-              consequuntur! Commodi minima excepturi repudiandae velit hic maxime
-              doloremque. Quaerat provident commodi consectetur veniam similique ad 
-              earum omnis ipsum saepe, voluptas, hic voluptates pariatur est explicabo 
-              fugiat, dolorum eligendi quam cupiditate excepturi mollitia maiores labore 
-              suscipit quas? Nulla, placeat. Voluptatem quaerat non architecto ab laudantium
-              modi minima sunt esse temporibus sint culpa, recusandae aliquam numquam 
-              totam ratione voluptas quod exercitationem fuga. Possimus quis earum veniam 
-              quasi aliquam eligendi, placeat qui corporis!
-          </Section>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name='Home' component={Home} />
+          <Tab.Screen name='Chat' component={Chat} />
+          <Tab.Screen name='Advice' component={Advice} />
+          <Tab.Screen name='HealthData' component={HealthData} />
+        </Tab.Navigator>
+      </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
