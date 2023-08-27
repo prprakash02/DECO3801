@@ -35,6 +35,32 @@ const Tab = createBottomTabNavigator();
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
+
+function App(): JSX.Element {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  return (
+      <NavigationContainer>
+        <Tab.Navigator
+        screenOptions={{ headerShown: false }}
+        >
+          <Tab.Screen name='Home' component={Home} />
+          <Tab.Screen name='Chat' component={Chat} />
+          <Tab.Screen name='Advice' component={Advice} />
+          <Tab.Screen name='HealthData' component={HealthData} />
+        </Tab.Navigator>
+      </NavigationContainer>
+  );
+}
+
+
+export default App;
+
+
 /*
 function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -62,24 +88,3 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 */
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name='Home' component={Home} />
-          <Tab.Screen name='Chat' component={Chat} />
-          <Tab.Screen name='Advice' component={Advice} />
-          <Tab.Screen name='HealthData' component={HealthData} />
-        </Tab.Navigator>
-      </NavigationContainer>
-  );
-}
-
-
-export default App;
