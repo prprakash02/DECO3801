@@ -19,18 +19,14 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from './screens/Home'
+import { createStackNavigator } from '@react-navigation/stack';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Home from './screens/Home' 
 import Chat from './screens/Chat'
 import Advice from './screens/Advice';
 import HealthData from './screens/HealthData';
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+import CustomHeader from './data/Header';
+/*
 const Tab = createBottomTabNavigator();
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -54,6 +50,25 @@ function App(): JSX.Element {
           <Tab.Screen name='HealthData' component={HealthData} />
         </Tab.Navigator>
       </NavigationContainer>
+  );
+}
+*/
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          header: (props) => <CustomHeader {...props} />,
+        }}
+      >
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Advice" component={Advice} />
+        <Stack.Screen name="HealthData" component={HealthData} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
