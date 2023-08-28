@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.login",
+  "appName": "login",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}
