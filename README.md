@@ -2,15 +2,18 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 ## Intro
 
-![alt text](https://i.ytimg.com/vi/1hJ5J5QiyIY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCAq5zjx9W7kLa9F4g3afZU-c8sCQ)
+## Team Apex
 
+# Getting Started with server
+First, cd to the server folder 
 
-Genshin Impact[a] is an action role-playing game developed by miHoYo, and published by miHoYo in mainland China and by Cognosphere, d/b/a HoYoverse worldwide. It was released for Android, iOS, PlayStation 4, and Windows in 2020, on PlayStation 5 in 2021, and is set for release on Nintendo Switch. The game features an anime-style open-world environment and an action-based battle system using elemental magic and character-switching. A free-to-play game monetized through gacha game mechanics, Genshin Impact is expanded regularly through patches using the games as a service model.
-https://en.wikipedia.org/wiki/Genshin_Impact
+Then, run 'npm install' after you have finished installing all the dependencies 
 
-Team Apex
+Remember to download and install MySql Modules, and start a connection on localhost
 
-# Getting Started
+Then, same as the client, run 'npm start'
+
+# Getting Started with client
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
