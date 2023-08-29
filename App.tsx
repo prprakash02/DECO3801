@@ -26,6 +26,31 @@ import Chat from './screens/Chat'
 import Advice from './screens/Advice';
 import HealthData from './screens/HealthData';
 import CustomHeader from './data/Header';
+import AuthScreen from './screens/AuthScreen';
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          header: (props) => <CustomHeader {...props} />,
+        }}
+      >
+        <Stack.Screen name="Auth" component={AuthScreen} 
+        options={{headerShown:false}}/>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Advice" component={Advice} />
+        <Stack.Screen name="HealthData" component={HealthData} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+
+export default App;
 /*
 const Tab = createBottomTabNavigator();
 type SectionProps = PropsWithChildren<{
@@ -53,28 +78,6 @@ function App(): JSX.Element {
   );
 }
 */
-const Stack = createStackNavigator();
-
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          header: (props) => <CustomHeader {...props} />,
-        }}
-      >
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="Advice" component={Advice} />
-        <Stack.Screen name="HealthData" component={HealthData} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-
-export default App;
-
 
 /*
 function Section({children, title}: SectionProps): JSX.Element {
