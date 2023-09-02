@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -27,10 +27,15 @@ import Advice from './screens/Advice';
 import HealthData from './screens/HealthData';
 import CustomHeader from './data/Header';
 import AuthScreen from './screens/AuthScreen';
+//import { dbTest } from './data/testdb';
+import Fetch from './data/testdb';
+import PushData from './data/testinsert';
+
 
 const Stack = createStackNavigator();
 
 function App() {
+  
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -38,8 +43,10 @@ function App() {
           header: (props) => <CustomHeader {...props} />,
         }}
       >
+        
+        <Stack.Screen name="test" component={Fetch}/>
         <Stack.Screen name="Auth" component={AuthScreen} 
-        options={{headerShown:false}}/>
+        options={{headerShown:true}}/>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Advice" component={Advice} />
