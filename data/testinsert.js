@@ -6,7 +6,7 @@ const PushData = () => {
 
   const pushData = async () => {
     try {
-      const query = 'INSERT INTO userprofiles (userid, username, date_of_birth) VALUES (6, \'2rank\', \'1995-12-17\');';
+      const query = 'INSERT INTO userprofiles (userid, username, date_of_birth) VALUES (8, \'SaberFate\', \'1995-09-30\',\'root\');';
       const response = await fetch('https://acoustic-cirrus-396009.ts.r.appspot.com/database', {
         method: 'POST',
         headers: {

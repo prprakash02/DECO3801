@@ -33,7 +33,7 @@ import PushData from './data/testinsert';
 
 
 const Stack = createStackNavigator();
-
+//<Stack.Screen name="test" component={Fetch}/>
 function App() {
   
   return (
@@ -44,7 +44,7 @@ function App() {
         }}
       >
         
-        <Stack.Screen name="test" component={Fetch}/>
+        
         <Stack.Screen name="Auth" component={AuthScreen} 
         options={{headerShown:true}}/>
         <Stack.Screen name="Home" component={Home} />

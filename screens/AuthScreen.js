@@ -1,84 +1,67 @@
 import React, { useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, TextInput, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-const API_URL = Platform.OS === 'ios' ? 'http://localhost:5000' : 'http://10.0.2.2:5000';
+const DATABASE_URL = 'https://acoustic-cirrus-396009.ts.r.appspot.com/database';
 
 const AuthScreen = () => {
-    const navigation = useNavigation();
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
-    const [isError, setIsError] = useState(false);
-    const [message, setMessage] = useState('');
-    const [isLogin, setIsLogin] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
 
-    const onChangeHandler = () => {
-        setIsLogin(!isLogin);
-        setMessage('');
-    };
+  const onChangeHandler = () => {
+    setIsLogin(!isLogin);
+    setMessage('');
+  };
 
-    const onLoggedIn = token => {
-        fetch(`${API_URL}/private`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`, 
-            },
-        })
-        .then(async res => { 
-            try {
-                const jsonRes = await res.json();
-                if (res.status === 200) {
-                    setMessage(jsonRes.message);
-                    navigation.navigate('Home'); // Navigate to Home after successful login
-                }
-            } catch (err) {
-                console.log(err);
-            };
-        })
-        .catch(err => {
-            console.log(err);
-        });
+  const onSubmitHandler = async () => {
+    try {
+      const query = isLogin
+        ? `SELECT * FROM userprofiles WHERE email='${email}' AND password='${password}'`
+        : `INSERT INTO userprofiles (email, name, password, date_of_birth) VALUES ('${email}', '${name}', '${password}', '1995-12-17')`;
+
+      const response = await fetch(DATABASE_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user: 'root',
+          pass: '3_l6#_9%?SBqji=%',
+          db_name: 'users',
+          query: query,
+        }),
+      });
+
+      const result = await response.text();
+
+      if (isLogin) {
+        if (result.includes(email)) {
+          navigation.navigate('Home');
+        } else {
+          setIsError(true);
+          setMessage('Invalid email or password');
+        }
+      } else {
+        // Handle signup logic here
+        setMessage('Signup successful');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setIsError(true);
+      setMessage('An error occurred');
     }
-    
-    const onSubmitHandler = () => {
-        const payload = {
-            email,
-            name,
-            password,
-        };
-        fetch(`${API_URL}/${isLogin ? 'login' : 'signup'}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        })
-        .then(async res => { 
-            try {
-                const jsonRes = await res.json();
-                if (res.status !== 200) {
-                    setIsError(true);
-                    setMessage(jsonRes.message);
-                } else {
-                    onLoggedIn(jsonRes.token);
-                    setIsError(false);
-                    setMessage(jsonRes.message);
-                }
-            } catch (err) {
-                console.log(err);
-            };
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    };
+  };
 
-    const getMessage = () => {
-        const status = isError ? `Error: ` : `Success: `;
-        return status + message;
-    }
+  const getMessage = () => {
+    const status = isError ? `Error: ` : `Success: `;
+
+    return status + message;
+  };
 
     return (
         <ImageBackground source={require('../assets/gradient-back.jpeg')} style={styles.image}>
