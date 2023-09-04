@@ -8,7 +8,7 @@ const AuthScreen = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
   const [isLogin, setIsLogin] = useState(true);
@@ -22,8 +22,10 @@ const AuthScreen = () => {
     try {
       const query = isLogin
         ? `SELECT * FROM userprofiles WHERE email='${email}' AND password='${password}'`
-        : `INSERT INTO userprofiles (email, name, password, date_of_birth) VALUES ('${email}', '${name}', '${password}', '1995-12-17')`;
-
+        : `INSERT INTO userprofiles (email, username, password, date_of_birth) VALUES ('${email}', '${name}', '${password}', '${dateOfBirth}')`;
+  
+      console.log('SQL Query:', query); // Log the SQL query
+  
       const response = await fetch(DATABASE_URL, {
         method: 'POST',
         headers: {
@@ -36,26 +38,32 @@ const AuthScreen = () => {
           query: query,
         }),
       });
-
-      const result = await response.text();
-
+  
+      const result = await response.json(); // Assuming server returns JSON
+  
+      console.log('Server Response:', result); // Log the server response
+  
       if (isLogin) {
-        if (result.includes(email)) {
+        if (result && result.length > 0 && result[0].email === email) { // Adjust this based on actual server response
           navigation.navigate('Home');
         } else {
           setIsError(true);
           setMessage('Invalid email or password');
         }
       } else {
-        // Handle signup logic here
-        setMessage('Signup successful');
+        if (response.status === 200) { // Adjust this based on actual server response
+          setMessage('Signup successful');
+        } else {
+          setIsError(true);
+          setMessage(result.error || 'An error occurred');
+        }
       }
     } catch (error) {
       console.error('Error:', error);
       setIsError(true);
       setMessage('An error occurred');
     }
-  };
+};
 
   const getMessage = () => {
     const status = isError ? `Error: ` : `Success: `;
@@ -71,6 +79,7 @@ const AuthScreen = () => {
                     <View style={styles.inputs}>
                         <TextInput style={styles.input} placeholder="Email" autoCapitalize="none" onChangeText={setEmail}></TextInput>
                         {!isLogin && <TextInput style={styles.input} placeholder="Name" onChangeText={setName}></TextInput>}
+                        {!isLogin && <TextInput style={styles.input} placeholder="Date of Birth (YYYY-MM-DD)" onChangeText={setDateOfBirth}></TextInput>}
                         <TextInput secureTextEntry={true} style={styles.input} placeholder="Password" onChangeText={setPassword}></TextInput>
                         <Text style={[styles.message, {color: isError ? 'red' : 'green'}]}>{message ? getMessage() : null}</Text>
                         <TouchableOpacity style={styles.button} onPress={onSubmitHandler}>
