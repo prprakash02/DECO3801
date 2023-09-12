@@ -4,7 +4,7 @@ import { View, Button, StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
-export default function Advice() {
+export default function Create() {
   return (
     <View style={styles.container}>
       <Button title="Top Center Button" onPress={() => {}} />

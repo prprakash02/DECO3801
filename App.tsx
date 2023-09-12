@@ -23,13 +23,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Home from './screens/Home' 
 import Chat from './screens/Chat'
-import Advice from './screens/Advice';
-import HealthData from './screens/HealthData';
+import Create from './screens/Create';
+import HealthData from './screens/Profile';
 import CustomHeader from './data/Header';
 import AuthScreen from './screens/AuthScreen';
 //import { dbTest } from './data/testdb';
 import Fetch from './data/testdb';
 import PushData from './data/testinsert';
+import Profile from './screens/Profile';
+import ChatPage from './screens/ChatPage';
 
 
 const Stack = createStackNavigator();
@@ -43,14 +45,13 @@ function App() {
           header: (props) => <CustomHeader {...props} />,
         }}
       >
-        
-        
         <Stack.Screen name="Auth" component={AuthScreen} 
         options={{headerShown:true}}/>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="Advice" component={Advice} />
-        <Stack.Screen name="HealthData" component={HealthData} />
+        <Stack.Screen name="Create" component={Create} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="ChatPage" component={ChatPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
