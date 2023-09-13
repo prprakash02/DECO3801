@@ -1,0 +1,3 @@
+service: spring
+runtime: java17
+
