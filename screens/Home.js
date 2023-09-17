@@ -2,7 +2,8 @@
 import React from 'react';
 //import { View, Button, StyleSheet, Dimensions } from 'react-native';
 //import { View, Button, StyleSheet, ScrollView, Dimensions } from 'react-native';
-import { View, Text, Image, StyleSheet, FlatList, Dimensions, TouchableOpacity, ScrollView, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, Dimensions, TouchableOpacity, ScrollView, Button, Modal} from 'react-native';
+import { useState, useEffect } from 'react';
 //import logo from '../data/Image';
 import logo from '../assets/logo.jpg';
 const DATABASE_URL = 'https://acoustic-cirrus-396009.ts.r.appspot.com/events';
@@ -11,42 +12,56 @@ const pass = '3_l6#_9%?SBqji=%';
 const db_name = 'users';
 
 const Home = () => {
-  const data = [
-    {
-      id: '1',
-      image: 'https://picsum.photos/200 ',
-      description: 'Words of description for image 1',
-    },
-    {
-      id: '2',
-      image: 'https://picsum.photos/200/300 ',
-      description: 'Words of description for image 2',
-    },
-    {
-      id: '3',
-      image: 'https://picsum.photos/200/200 ',
-      description: 'Words of description for image 2',
-    },
-    {
-      id: '4',
-      image: 'https://picsum.photos/200/300 ',
-      description: 'Words of description for image 2',
-    },
-    // ... Add more items as needed
-  ];
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [fetchedEventIDs, setFetchedEventIDs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('https://acoustic-cirrus-396009.ts.r.appspot.com/events', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: "",
+            num_return: "100",
+          }),
+        });
+        const result = await response.json();
+        const newEvents = result.filter(event => !fetchedEventIDs.includes(event.eventID));
+        setData(prevData => [...prevData, ...newEvents]);
+        setFetchedEventIDs(prevIDs => [...prevIDs, ...newEvents.map(event => event.eventID)]);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [page]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-      </View>
+      <View style={styles.header}></View>
       <FlatList
         data={data}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.eventID.toString()}
         pagingEnabled
         showsVerticalScrollIndicator={false}
+        onEndReached={() => {
+          console.log("Reached end of list"); // Just for debugging
+          setPage(prevPage => prevPage + 1);
+        }}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={<View style={{ height: 50 }} />} // Adding a footer
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
-            <Image source={{ uri: item.image }} style={styles.image} />
+            <Image source={{ uri: item.eventImage.url }} style={styles.image} />
             <View style={styles.descriptionContainer}>
               <Text>{item.description}</Text>
             </View>
@@ -58,6 +73,62 @@ const Home = () => {
 };
 
 
+/**
+ * const Home = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('https://acoustic-cirrus-396009.ts.r.appspot.com/events', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: "",
+            num_return: "5",
+          }),
+        });
+        const result = await response.json();
+        setData(prevData => [...prevData, ...result]);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [page]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}></View>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.eventID.toString()}
+        pagingEnabled
+        showsVerticalScrollIndicator={false}
+        onEndReached={() => setPage(prevPage => prevPage + 1)}
+        onEndReachedThreshold={0.5}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <Image source={{ uri: item.eventImage.url }} style={styles.image} />
+            <View style={styles.descriptionContainer}>
+              <Text>{item.description}</Text>
+            </View>
+          </View>
+        )}
+      />
+    </View>
+  );
+};
+
+ */
 
 const { width, height } = Dimensions.get('window');
 
