@@ -10,7 +10,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").withSockJS();
+        // registry.addEndpoint("/ws").withSockJS();
+        registry.addEndpoint("https://spring-dot-acoustic-cirrus-396009.ts.r.appspot.com/").withSockJS();
     }
 
     @Override

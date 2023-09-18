@@ -35,7 +35,6 @@ test {
 }
 appengine {
 	deploy {
-		projectId = 'GCLOUD_CONFIG'
-	}
-	version = 'GCLOUD_CONFIG'
+		projectId = 'acoustic-cirrus-396009'
+		version = 'GCLOUD_CONFIG'}
 }
