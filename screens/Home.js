@@ -45,6 +45,26 @@ const Home = () => {
     fetchData();
   }, [page]);
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const showModal = (item) => {
+    setSelectedEvent(item);
+  };
+
+  const hideModal = () => {
+    setSelectedEvent(null);
+  };
+
+  const getValue = (item, label) => {
+    const field = item.customFields.find(field => field.label === label);
+    return field ? field.value : 'null';
+  };
+
+  const handlePress = (item) => {
+    setSelectedEvent(item);
+    setModalVisible(true);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
@@ -60,14 +80,45 @@ const Home = () => {
         onEndReachedThreshold={0.1}
         ListFooterComponent={<View style={{ height: 50 }} />} // Adding a footer
         renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
+          <TouchableOpacity onPress={() => handlePress(item)} style={styles.clickableItemContainer}>
             <Image source={{ uri: item.eventImage.url }} style={styles.image} />
             <View style={styles.descriptionContainer}>
-              <Text>{item.description}</Text>
+              <Text numberOfLines={3} ellipsizeMode="tail">{item.description}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
+      {selectedEvent && (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={true}
+          onRequestClose={hideModal}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <TouchableOpacity style={styles.closeButton} onPress={hideModal}>
+                <Text style={styles.closeButtonText}>X</Text>
+              </TouchableOpacity>
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <Text style={styles.modalTitle}>Title</Text>
+                <Text>{selectedEvent.title}</Text>
+                <Text style={styles.modalTitle}>Description</Text>
+                <Text>{selectedEvent.description}</Text>
+                <Text style={styles.modalTitle}>Bookings</Text>
+                <Text>{getValue(selectedEvent, 'Bookings')}</Text>
+                <Text style={styles.modalTitle}>Venue</Text>
+                <Text>{getValue(selectedEvent, 'Venue')}</Text>
+                <Text style={styles.modalTitle}>Meeting Point</Text>
+                <Text>{getValue(selectedEvent, 'Meeting point')}</Text>
+                <Text style={styles.modalTitle}>Cost</Text>
+                <Text>{getValue(selectedEvent, 'cost')}</Text>
+                {/* ... other fields */}
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
+      )}
     </View>
   );
 };
@@ -171,6 +222,95 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
   },
+  clickableItemContainer: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    margin: 5,
+    padding: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    padding: 20,
+  },
+  fieldLabel: {
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 15,
+    width: '80%',
+    alignItems: 'flex-start',
+  },
+  closeButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'rgba(0,0,0,0.5)'  // semi-transparent background
+  },
+  modalView: {
+    width: '80%',
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  backButton: {
+    backgroundColor: "#2196F3",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+  backButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalTitle: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: "center"
+  },
+  closeButton: {
+    position: 'absolute',
+    left: 10,
+    top: 10,
+    backgroundColor: "#2196F3",
+    borderRadius: 15,
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1
+  },
+  closeButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  }
 });
 
 

@@ -32,6 +32,7 @@ import Fetch from './data/testdb';
 import PushData from './data/testinsert';
 import Profile from './screens/Profile';
 import ChatPage from './screens/ChatPage';
+import ChatPageGroup from './screens/ChatPageGroup';
 
 
 const Stack = createStackNavigator();
@@ -52,6 +53,7 @@ function App() {
         <Stack.Screen name="Create" component={Create} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ChatPage" component={ChatPage} />
+        <Stack.Screen name="ChatPageGroup" component={ChatPageGroup}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

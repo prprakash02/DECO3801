@@ -11,7 +11,15 @@ const data = [
 ];
 
 const HomePage = () => {
-  const navigation = useNavigation(); // Move this line inside the component
+  const navigation = useNavigation();
+
+  const handleItemClick = (itemName) => {
+    if (itemName === 'My family') {
+      navigation.navigate('ChatPageGroup'); // Navigate to ChatPageGroup if 'My family' is clicked
+    } else {
+      navigation.navigate('ChatPage'); // Default navigation to ChatPage for other items
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -21,7 +29,7 @@ const HomePage = () => {
         renderItem={({ item }) => (
           <TouchableOpacity 
             style={styles.itemContainer}
-            onPress={() => navigation.navigate('ChatPage')} // Navigate to ChatPage when an item is clicked
+            onPress={() => handleItemClick(item.name)}
           >
             <View style={styles.logo}></View>
             <View style={styles.textContainer}>
