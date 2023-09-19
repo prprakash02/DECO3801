@@ -24,7 +24,7 @@ function connect(event) {
         chatPage.classList.remove('hidden');
 
         // var socket = new SockJS('/ws');
-        var socket = new SockJS('wss://spring-dot-acoustic-cirrus-396009.ts.r.appspot.com/ws');
+        var socket = new SockJS('ws://spring-dot-acoustic-cirrus-396009.ts.r.appspot.com/ws');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);

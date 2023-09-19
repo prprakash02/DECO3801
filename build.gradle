@@ -38,3 +38,8 @@ appengine {
 		projectId = 'acoustic-cirrus-396009'
 		version = 'GCLOUD_CONFIG'}
 }
+
+jar{
+	enabled = false
+	archiveClassifier = ''
+}
