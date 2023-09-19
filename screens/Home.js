@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import logo from '../assets/logo.jpg';
 const DATABASE_URL = 'https://acoustic-cirrus-396009.ts.r.appspot.com/events';
 const user = 'root';
-const pass = '3_l6#_9%?SBqji=%';
+const pass = 'root';
 const db_name = 'users';
 
 const Home = () => {

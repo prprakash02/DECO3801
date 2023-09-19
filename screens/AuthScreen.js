@@ -33,7 +33,7 @@ const AuthScreen = () => {
         },
         body: JSON.stringify({
           user: 'root',
-          pass: '3_l6#_9%?SBqji=%',
+          pass: 'root',
           db_name: 'users',
           query: query,
         }),
@@ -58,7 +58,7 @@ const AuthScreen = () => {
           setMessage(result.error || 'An error occurred');
         }
       }
-    } catch (error) {
+    } catch (error) { 
       console.error('Error:', error);
       setIsError(true);
       setMessage('An error occurred');
