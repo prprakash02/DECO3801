@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, TextInput, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-const DATABASE_URL = 'https://acoustic-cirrus-396009.ts.r.appspot.com/database';
+const DATABASE_URL = 'https://flask-dot-acoustic-cirrus-396009.ts.r.appspot.com/database';
 
 const AuthScreen = () => {
   const navigation = useNavigation();

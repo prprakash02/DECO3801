@@ -21,7 +21,7 @@ const Home = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch('https://acoustic-cirrus-396009.ts.r.appspot.com/events', {
+        const response = await fetch('https://flask-dot-acoustic-cirrus-396009.ts.r.appspot.com/events', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
